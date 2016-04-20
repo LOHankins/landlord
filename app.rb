@@ -31,20 +31,32 @@ require_relative 'models/tenant'
 # example: get every tenant in the DB
 # binding.pry
 
+# The names you have for your url paths are great and make sense. A few are slightly different from the conventions:
+#/apartments
+# => index with links all apartments
+
+#/apartments/new
+# => show form for creating apart
+
 get '/landlord' do
 	@apartments = Apartment.all
 	@tenants = Tenant.all
 	erb :"apartment/apartment"
+  # the convetion is to call this view "index" instead of "apartment"
 end
 
 get '/apartments/:id' do
 	@apartment = Apartment.find(params[:id])
 	erb :"apartment/display"
+  # the convetion is to call this view "show" instead of "display"
 end
 
 
 get '/add_apartment' do
 	erb :"apartment/show"
+  # the convetion is to call this view "new" instead of "show"
+  # show - is for the details of a page
+  # new - is for the form for creation
 end
 
 post '/add_apartment' do
@@ -55,6 +67,7 @@ end
 get '/apartments/:id/edit' do
 	@apartment = Apartment.find(params[:id])
 	erb :"apartment/update"
+  # the convetion is to call this view "edit" instead of "update", update typically talks about the actual updating of database instead of displaying the form
 end
 
 put 'apartments/:id' do
@@ -68,6 +81,8 @@ delete 'apartment/:id' do
 	@apartment.destroy
 	redirect("apartment/apartment")
 end
+
+# You should commit more often and delete old unused code
 
 #/apartments
 # => index with links all apartments
@@ -105,7 +120,7 @@ end
 # puts "*" * 50
 
 # # get all tenants older than 65
-# all_tenants.map do |tenant| 
+# all_tenants.map do |tenant|
 # 	if (tenant.age.to_i > 65)
 # 		puts tenant.name + "  " + tenant.age
 # 	# puts first_tenant.name + "  " + first_tenant.age
@@ -142,7 +157,7 @@ end
 
 # # Use `each` and `puts` to:
 # # Display the name and ID # of every tenant
-# all_tenants.each do |tenant| 
+# all_tenants.each do |tenant|
 # 	puts tenant.id.to_s + "  " + tenant.name
 # end
 
